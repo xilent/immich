@@ -217,6 +217,7 @@ const searchFilterBranchShape = {
   isEncoded: BoolFilterSchema,
   hasAlbums: BoolFilterSchema,
   hasPeople: BoolFilterSchema,
+  hasHiddenPeople: BoolFilterSchema,
   hasTags: BoolFilterSchema,
   city: StringFilterNullableSchema,
   state: StringFilterNullableSchema,

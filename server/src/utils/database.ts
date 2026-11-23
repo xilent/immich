@@ -577,6 +577,13 @@ const visibleFaces = (eb: AssetExpressionBuilder) =>
     .where('asset_face.deletedAt', 'is', null)
     .where('asset_face.isVisible', '=', true);
 
+const hiddenFaces = (eb: AssetExpressionBuilder) =>
+  eb
+    .selectFrom('asset_face')
+    .whereRef('asset_face.assetId', '=', 'asset.id')
+    .where('asset_face.deletedAt', 'is', null)
+    .where('asset_face.isVisible', '=', false);
+
 const tagAssets = (eb: AssetExpressionBuilder) =>
   eb.selectFrom('tag_asset').whereRef('tag_asset.assetId', '=', 'asset.id');
 
@@ -766,6 +773,7 @@ function branchPredicates(eb: AssetExpressionBuilder, branch: SearchFilterBranch
     ...existsPredicates(eb, branch.isEncoded, () => encodedVideoFiles(eb)),
     ...existsPredicates(eb, branch.hasAlbums, () => albumAssets(eb)),
     ...existsPredicates(eb, branch.hasPeople, () => visibleFaces(eb)),
+    ...existsPredicates(eb, branch.hasHiddenPeople, () => hiddenFaces(eb)),
     ...existsPredicates(eb, branch.hasTags, () => tagAssets(eb)),
     ...comparisonPredicates(eb, 'asset_exif.city', branch.city),
     ...comparisonPredicates(eb, 'asset_exif.state', branch.state),
