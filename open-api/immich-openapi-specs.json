@@ -16718,6 +16718,15 @@
             }
           },
           {
+            "description": "Filter by GPS coordinates (true for assets with coordinates only, false for assets without)",
+            "in": "query",
+            "name": "hasCoordinates",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Filter by favorite status (true for favorites only, false for non-favorites only)",
             "in": "query",
             "name": "isFavorite",
@@ -16914,6 +16923,15 @@
             "schema": {
               "example": "11.075683,49.416711,11.117589,49.454875",
               "type": "string"
+            }
+          },
+          {
+            "description": "Filter by GPS coordinates (true for assets with coordinates only, false for assets without)",
+            "in": "query",
+            "name": "hasCoordinates",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -28940,12 +28958,14 @@
         "description": "Server feature level",
         "enum": [
           1,
-          2
+          2,
+          3
         ],
         "type": "integer",
         "x-enum-varnames": [
           "FeatureLevel",
-          "Passkeys"
+          "Passkeys",
+          "SyncPendingReset"
         ]
       },
       "ServerFeaturesDto": {
@@ -32998,7 +33018,8 @@
           "UserMetadataDeleteV1",
           "SyncAckV1",
           "SyncResetV1",
-          "SyncCompleteV1"
+          "SyncCompleteV1",
+          "SyncPendingResetV1"
         ],
         "type": "string"
       },
@@ -33319,6 +33340,18 @@
         ],
         "type": "object"
       },
+      "SyncPendingResetV1": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SyncRequestType",
+            "description": "Sync request type to reset"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      },
       "SyncPersonDeleteV1": {
         "properties": {
           "personId": {
@@ -33440,7 +33473,8 @@
           "PeopleV1",
           "AssetFacesV2",
           "AssetFacesV3",
-          "UserMetadataV1"
+          "UserMetadataV1",
+          "PendingResetV1"
         ],
         "type": "string"
       },
